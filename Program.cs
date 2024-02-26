@@ -65,6 +65,25 @@ namespace Laiterekisteri
 
         // Other methods
         // -------------
+        // Yliluokan metodit
+        public void ShowPurchaseInfo()
+        {
+            // Luetaan laitteen ostotiedot sen kentistä, huom! this
+            Console.WriteLine("Laitteen nimi: " +  this.identity);
+            Console.WriteLine("Ostopäivä: " + this.dateBought);
+            Console.WriteLine("Hankintahinta: " + this.price);
+            Console.WriteLine("Takuu: " + this.warranty + " kk");
+        }
+         
+        // Luetaan laitteen yleiset tekniset tiedot ominaisuuksista
+        // huom iso alkukirjain
+        public void ShowBasicTechnicalInfo()
+        {
+            Console.WriteLine("Koneen nimi: " + Identity);
+            Console.WriteLine("Prosessori: " + ProcessorType);
+            Console.WriteLine("Keskusmuisti: " + AmountRAM);
+            Console.WriteLine("Levytila: " + StorageCapacity);
+        }
     }
 
     // Class for computers, inherits Device class
@@ -80,13 +99,7 @@ namespace Laiterekisteri
             { }
 
         // Muut metodit
-        public void ShowInfo()
-            {
-            Console.WriteLine("Koneen nimi: " + Identity);
-            Console.WriteLine("Prosessori: " + ProcessorType);
-            Console.WriteLine("Keskusmuisti: " + AmountRAM);
-            Console.WriteLine("Levytila: " + StorageCapacity);
-            }
+        
     }    
     // Class for computers, inherits Device class
     class SmartPhone : Device
@@ -120,9 +133,9 @@ namespace Laiterekisteri
             // Ohjelma kysyy käyttäjältä tietoja laitteista ja vastaamalla kysymyksiin tiedot tallennetaan muuttujiin.
 
             // Luodaan uusi laite Device-luokasta
-            Device laite = new Device("Eka kone");
-            Console.WriteLine("Laitteen nimi on: " + laite.Identity);
-            Console.WriteLine("Ostopäivä oli: " + laite.DateBought);
+            //Device laite = new Device("Eka kone");
+            //Console.WriteLine("Laitteen nimi on: " + laite.Identity);
+            //Console.WriteLine("Ostopäivä oli: " + laite.DateBought);
 
             // Luodaan uusi tietokone, joka perii laiteluokan (Device) ominaisuudet ja metodit
             Computer tietokone1 = new Computer();
@@ -130,14 +143,23 @@ namespace Laiterekisteri
             // Asetetaan Prosessori-ominaisuuden arvo
             tietokone1.ProcessorType = "Intel I7";
             tietokone1.AmountRAM = 16;
+            tietokone1.DateBought = "15.2.2024";
+            tietokone1.Price = 850.00d;
+            tietokone1.Warranty = 36;
 
-            Console.WriteLine("Uuden tietokoneen nimi on: " + tietokone1.Identity + " ja siinä on " + tietokone1.ProcessorType + " -prosessori ja " + tietokone1.AmountRAM + " GB keskusmuistia");
+            Console.WriteLine("Tietokone 1:n hankintatiedot ");
+            Console.WriteLine("-----------------------------");
+            tietokone1.ShowPurchaseInfo();
+
+            //Console.WriteLine("Uuden tietokoneen nimi on: " + tietokone1.Identity + " ja siinä on " + tietokone1.ProcessorType + " -prosessori ja " + tietokone1.AmountRAM + " GB keskusmuistia");
 
             // Luodaan uusi nimetty tietokone toisella konstruktorilla
             Computer tietokone2 = new Computer("Elina läppäri");
             tietokone2.ProcessorType = "Intel Core i7 vPro";
             tietokone2.AmountRAM = 32;
-            tietokone2.ShowInfo();
+            Console.WriteLine("Tietokone 2:n tekniset tiedot ");
+            Console.WriteLine("-----------------------------");
+            tietokone2.ShowBasicTechnicalInfo();
 
             // Pidetään ikkuna auki, kunnes käyttäjä painaa enteriä
             Console.ReadLine();
