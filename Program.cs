@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace Laiterekisteri
 {
+    // LUOKKAMÄÄRITYKSET
+    // =================
+
     // Base class for devices, yleinen laiteluokka, yliluokka tietokoneille, tableteille ja puhelimille
+    // -------------------------------------------------------------------------------------------------
     class Device
     {
-        // Fields, luodaan kenttä (field) identity, esitellään (define) ja annetaan arvo (set initial value)
-        // ------
+        // Kentät ja ominaisuudet
+        // ----------------------
+
+        // Luodaan kenttä (field) identity, esitellään (define) ja annetaan arvo (set initial value)
+        
         string identity = "Uusi laite"; 
         
         // Luodaan kenttää vastaava ominaisuus (property) Identity ja sille asetusmetodi set ja lukumetodi get.
@@ -117,30 +124,51 @@ namespace Laiterekisteri
     // Class for Tablets, inherits Device class, Tablettien luokka, perii laiteluokan
     class Tablet : Device
     {
-        // Fields, kentät
+        // Fields, kentät ja ominaisuudet
+        // ------------------------------
         string operatingSystem;
         public string OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
         bool stylusEnabled = false;
         public bool StylusEnabled { get {  return stylusEnabled; } set {  stylusEnabled = value; } }
+
+        // Konstruktorit
+        // -------------
+
+        public Tablet() : base() { }
+
+        public Tablet(string name) : base(name) { }
+
+        // Tablet-luokan erikoismetodit
+        // ----------------------------
+        public void TabletInfo()
+        { 
+          Console.WriteLine("Käyttöjärjestelmä: " + OperatingSystem);
+          Console.WriteLine("Kynätuki: " + StylusEnabled);
+        }
     }
    
     // Pääluokan ohjelma, josta tulee Program.exe
+    // ===========================================
     internal class Program 
     { 
+        // Ohjelman käynnistävä metodi
+        // ---------------------------
         static void Main(string[] args) 
         {
             // Ohjelman varsinaiset toiminnot tapahtuvat täällä
             // Ohjelma kysyy käyttäjältä tietoja laitteista ja vastaamalla kysymyksiin tiedot tallennetaan muuttujiin.
 
-            // Luodaan uusi laite Device-luokasta
-            //Device laite = new Device("Eka kone");
-            //Console.WriteLine("Laitteen nimi on: " + laite.Identity);
-            //Console.WriteLine("Ostopäivä oli: " + laite.DateBought);
+           
+
+
+            // Olioiden luominen ja metodien testaus
+            // -------------------------------------
 
             // Luodaan uusi tietokone, joka perii laiteluokan (Device) ominaisuudet ja metodit
+
             Computer tietokone1 = new Computer();
 
-            // Asetetaan Prosessori-ominaisuuden arvo
+            // Asetetaan ensimmäisen tietokoneen ominaisuuksien arvot
             tietokone1.ProcessorType = "Intel I7";
             tietokone1.AmountRAM = 16;
             tietokone1.DateBought = "15.2.2024";
@@ -151,15 +179,34 @@ namespace Laiterekisteri
             Console.WriteLine("-----------------------------");
             tietokone1.ShowPurchaseInfo();
 
-            //Console.WriteLine("Uuden tietokoneen nimi on: " + tietokone1.Identity + " ja siinä on " + tietokone1.ProcessorType + " -prosessori ja " + tietokone1.AmountRAM + " GB keskusmuistia");
-
-            // Luodaan uusi nimetty tietokone toisella konstruktorilla
+            // Luodaan uusi nimetty tietokone 
             Computer tietokone2 = new Computer("Elina läppäri");
             tietokone2.ProcessorType = "Intel Core i7 vPro";
             tietokone2.AmountRAM = 32;
             Console.WriteLine("Tietokone 2:n tekniset tiedot ");
             Console.WriteLine("-----------------------------");
             tietokone2.ShowBasicTechnicalInfo();
+
+            // Luodaan testiolio tabletille
+            Tablet tabletti1 = new Tablet("Mikan iPad");
+            tabletti1.DateBought = "1.10.2022";
+            tabletti1.OperatingSystem = "IOS";
+            tabletti1.StylusEnabled = true;
+
+            // Näytetään tietoja metodien avulla
+            Console.WriteLine("Tabletti 1:n hankintatiedot ");
+            Console.WriteLine("-----------------------------");
+            tabletti1.ShowPurchaseInfo();
+
+            Console.WriteLine("Tabletti 1:n tekniset tiedot ");
+            Console.WriteLine("-----------------------------");
+            tabletti1.ShowBasicTechnicalInfo();
+
+            Console.WriteLine("Tabletti 1:n erityistiedot ");
+            Console.WriteLine("-----------------------------");
+            tabletti1.TabletInfo();
+
+            
 
             // Pidetään ikkuna auki, kunnes käyttäjä painaa enteriä
             Console.ReadLine();
