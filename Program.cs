@@ -43,14 +43,9 @@ namespace Laiterekisteri
         int storageCapacity =0;
         public int StorageCapacity { get { return storageCapacity; } set { storageCapacity = value; } }
 
-
-        // Properties
-        // ----------
-
-
-        // Constructors
-        // ------------
-        // Kostruktori eli oliomuodostin (constructor) ilman argumentteja    
+        // Constructors, konstruktori eli oliomuodostin ilman argumentteja
+        // ---------------------------------------------------------------
+       
         public Device()
         {
 
@@ -70,9 +65,8 @@ namespace Laiterekisteri
             this.warranty = warranty;
         }
 
-        // Other methods
-        // -------------
-        // Yliluokan metodit
+        // Other methods, yliluokan metodit
+        // --------------------------------
         public void ShowPurchaseInfo()
         {
             // Luetaan laitteen ostotiedot sen kentistä, huom! this
@@ -93,8 +87,7 @@ namespace Laiterekisteri
         }
     }
 
-    // Class for computers, inherits Device class
-    // Tietokoneiden luokka, perii ominaisuuksia ja metodeja laiteluokasta Device
+    // Class for computers, inherits Device class. Tietokoneiden luokka, perii ominaisuuksia ja metodeja laiteluokasta Device.
     class Computer : Device
     {
        
@@ -108,16 +101,19 @@ namespace Laiterekisteri
         // Muut metodit
         
     }    
-    // Class for computers, inherits Device class
+    // Class for smartphones, inherits Device class. Älypuhelinten luokka, perii ominaisuuksia ja metodeja laiteluokasta Device.
     class SmartPhone : Device
-
     {
-        // Fields
-
-        // Properties
+        string operatingSystem;
+        public string OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
 
         // Constructors
+        public SmartPhone() : base() 
+            { }
 
+        public SmartPhone(string identity) : base(identity) 
+            { }
+            
         // Other methods
     }
 
@@ -183,9 +179,24 @@ namespace Laiterekisteri
             Computer tietokone2 = new Computer("Elina läppäri");
             tietokone2.ProcessorType = "Intel Core i7 vPro";
             tietokone2.AmountRAM = 32;
+            
             Console.WriteLine("Tietokone 2:n tekniset tiedot ");
             Console.WriteLine("-----------------------------");
             tietokone2.ShowBasicTechnicalInfo();
+
+            // Luodaan testiolio älypuhelimelle
+            SmartPhone smartPhone1 = new SmartPhone("Elinan kännykkä");
+            smartPhone1.DateBought = "14.2.2023";
+            smartPhone1.OperatingSystem = "Android";
+            smartPhone1.Price = 350.00d;
+
+            Console.WriteLine("Kännykkä 1:n hankintatiedot ");
+            Console.WriteLine("-----------------------------");
+            smartPhone1.ShowPurchaseInfo();
+
+            Console.WriteLine("Kännykkä 1:n tekniset tiedot ");
+            Console.WriteLine("-----------------------------");
+            smartPhone1.ShowBasicTechnicalInfo();
 
             // Luodaan testiolio tabletille
             Tablet tabletti1 = new Tablet("Mikan iPad");
