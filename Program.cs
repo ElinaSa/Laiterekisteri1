@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -151,73 +152,44 @@ namespace Laiterekisteri
         // ---------------------------
         static void Main(string[] args) 
         {
-            // Ohjelman varsinaiset toiminnot tapahtuvat täällä
-            // Ohjelma kysyy käyttäjältä tietoja laitteista ja vastaamalla kysymyksiin tiedot tallennetaan muuttujiin.
+            // Ikuinen silmukka pääohjelman käynnissä pitämiseen
+            while (true)
+            {
+                Console.WriteLine("Minkä laitteen tiedot tallennetaan?");
+                Console.WriteLine("1 tietokone, 2 tabletti");
+                string type = Console.ReadLine();
 
-           
+                // Luodaan Switch-Case -rakenne vaihtoehdoille
+                switch (type)
+                {
+                    case "1":
+                        Console.Write("Nimi: ");
+                        string computerIdentity = Console.ReadLine();
+                        Computer computer = new Computer();
+                        break;
 
+                    case "2":
+                        Console.Write("Nimi: ");
+                        string tabletIdentity = Console.ReadLine();
+                        Tablet tablet = new Tablet();
+                        break;
 
-            // Olioiden luominen ja metodien testaus
-            // -------------------------------------
+                    default:
+                        Console.WriteLine("Virheellinen valinta, anna pelkkä numero");
+                        break;
+                }
 
-            // Luodaan uusi tietokone, joka perii laiteluokan (Device) ominaisuudet ja metodit
+                // Ohjelman sulkieminen: poistutaan ikuisesta silmukasta
+                Console.WriteLine("Haluatko jatkaa K/e");
+                string continueAnswer = Console.ReadLine();
+                continueAnswer = continueAnswer.Trim();
+                continueAnswer = continueAnswer.ToLower();
+                if (continueAnswer == "e")
+                {
+                    break;
+                }
 
-            Computer tietokone1 = new Computer();
-
-            // Asetetaan ensimmäisen tietokoneen ominaisuuksien arvot
-            tietokone1.ProcessorType = "Intel I7";
-            tietokone1.AmountRAM = 16;
-            tietokone1.DateBought = "15.2.2024";
-            tietokone1.Price = 850.00d;
-            tietokone1.Warranty = 36;
-
-            Console.WriteLine("Tietokone 1:n hankintatiedot ");
-            Console.WriteLine("-----------------------------");
-            tietokone1.ShowPurchaseInfo();
-
-            // Luodaan uusi nimetty tietokone 
-            Computer tietokone2 = new Computer("Elina läppäri");
-            tietokone2.ProcessorType = "Intel Core i7 vPro";
-            tietokone2.AmountRAM = 32;
-            
-            Console.WriteLine("Tietokone 2:n tekniset tiedot ");
-            Console.WriteLine("-----------------------------");
-            tietokone2.ShowBasicTechnicalInfo();
-
-            // Luodaan testiolio älypuhelimelle
-            SmartPhone smartPhone1 = new SmartPhone("Elinan kännykkä");
-            smartPhone1.DateBought = "14.2.2023";
-            smartPhone1.OperatingSystem = "Android";
-            smartPhone1.Price = 350.00d;
-
-            Console.WriteLine("Kännykkä 1:n hankintatiedot ");
-            Console.WriteLine("-----------------------------");
-            smartPhone1.ShowPurchaseInfo();
-
-            Console.WriteLine("Kännykkä 1:n tekniset tiedot ");
-            Console.WriteLine("-----------------------------");
-            smartPhone1.ShowBasicTechnicalInfo();
-
-            // Luodaan testiolio tabletille
-            Tablet tabletti1 = new Tablet("Mikan iPad");
-            tabletti1.DateBought = "1.10.2022";
-            tabletti1.OperatingSystem = "IOS";
-            tabletti1.StylusEnabled = true;
-
-            // Näytetään tietoja metodien avulla
-            Console.WriteLine("Tabletti 1:n hankintatiedot ");
-            Console.WriteLine("-----------------------------");
-            tabletti1.ShowPurchaseInfo();
-
-            Console.WriteLine("Tabletti 1:n tekniset tiedot ");
-            Console.WriteLine("-----------------------------");
-            tabletti1.ShowBasicTechnicalInfo();
-
-            Console.WriteLine("Tabletti 1:n erityistiedot ");
-            Console.WriteLine("-----------------------------");
-            tabletti1.TabletInfo();
-
-            
+            }
 
             // Pidetään ikkuna auki, kunnes käyttäjä painaa enteriä
             Console.ReadLine();
