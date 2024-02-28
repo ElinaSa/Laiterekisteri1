@@ -255,7 +255,18 @@ namespace Laiterekisteri
 
                         break;
 
+
                     case "2":
+
+                        Console.Write("Nimi: ");
+                        string smartPhoneIdentity = Console.ReadLine();
+                        SmartPhone smartPhone = new SmartPhone(smartPhoneIdentity);
+                        break;
+
+
+
+
+                    case "3":
                         Console.Write("Nimi: ");
                         string tabletIdentity = Console.ReadLine();
                         Tablet tablet = new Tablet(tabletIdentity);
