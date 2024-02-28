@@ -11,14 +11,12 @@ namespace Laiterekisteri
     // =================
 
     // Base class for devices, yleinen laiteluokka, yliluokka tietokoneille, tableteille ja puhelimille
-    // -------------------------------------------------------------------------------------------------
-    class Device
+        class Device
     {
         // Kentät ja ominaisuudet
         // ----------------------
-
-        // Luodaan kenttä (field) identity, esitellään (define) ja annetaan arvo (set initial value)
         
+        // Luodaan kenttä (field) identity, esitellään (define) ja annetaan arvo (set initial value)
         string identity = "Uusi laite"; 
         
         // Luodaan kenttää vastaava ominaisuus (property) Identity ja sille asetusmetodi set ja lukumetodi get.
@@ -39,18 +37,20 @@ namespace Laiterekisteri
         public string ProcessorType { get { return processorType; } set { processorType = value; } }
 
         int amountRAM = 0;
-        public int AmountRAM { get { return amountRAM; } set { amountRAM = value; } }
+        public int AmountRam { get { return amountRAM; } set { amountRAM = value; } }
 
         int storageCapacity =0;
         public int StorageCapacity { get { return storageCapacity; } set { storageCapacity = value; } }
 
-        // Constructors, konstruktori eli oliomuodostin ilman argumentteja
-        // ---------------------------------------------------------------
-       
+        // Constructors 
+        // ------------
+
+        // konstruktori eli oliomuodostin ilman argumentteja
         public Device()
         {
 
         }
+
         // A constructor with one argument, konstruktori nimi-argumentilla, tässä tapauksessa identiteetti
         public Device(string identity)
         {
@@ -66,26 +66,36 @@ namespace Laiterekisteri
             this.warranty = warranty;
         }
 
-        // Other methods, yliluokan metodit
-        // --------------------------------
+        // Other methods, muut metodit
+        // ---------------------------
+
+        // Yliluokan metodit
         public void ShowPurchaseInfo()
         {
             // Luetaan laitteen ostotiedot sen kentistä, huom! this
+            Console.WriteLine();
+            Console.WriteLine("Laitteen hankintatiedot");
+            Console.WriteLine("-----------------------");
             Console.WriteLine("Laitteen nimi: " +  this.identity);
             Console.WriteLine("Ostopäivä: " + this.dateBought);
             Console.WriteLine("Hankintahinta: " + this.price);
             Console.WriteLine("Takuu: " + this.warranty + " kk");
         }
-         
-        // Luetaan laitteen yleiset tekniset tiedot ominaisuuksista
-        // huom iso alkukirjain
+
+        // Luetaan laitteen yleiset tekniset tiedot ominaisuuksista, huom iso alkukirjain
         public void ShowBasicTechnicalInfo()
         {
+            Console.WriteLine();
+            Console.WriteLine("Laitteen tekniset tiedot");
+            Console.WriteLine("--------------------- --");
             Console.WriteLine("Koneen nimi: " + Identity);
             Console.WriteLine("Prosessori: " + ProcessorType);
-            Console.WriteLine("Keskusmuisti: " + AmountRAM);
+            Console.WriteLine("Keskusmuisti: " + AmountRam);
             Console.WriteLine("Levytila: " + StorageCapacity);
+
+
         }
+
     }
 
     // Class for computers, inherits Device class. Tietokoneiden luokka, perii ominaisuuksia ja metodeja laiteluokasta Device.
@@ -99,9 +109,11 @@ namespace Laiterekisteri
         public Computer(string identity) : base(identity)
             { }
 
+
         // Muut metodit
         
     }    
+
     // Class for smartphones, inherits Device class. Älypuhelinten luokka, perii ominaisuuksia ja metodeja laiteluokasta Device.
     class SmartPhone : Device
     {
@@ -123,9 +135,10 @@ namespace Laiterekisteri
     {
         // Fields, kentät ja ominaisuudet
         // ------------------------------
-        string operatingSystem;
+        string operatingSystem; 
+        // Kenttä -> pieni alkukirjain, Ominaisuus -> iso alkukirjain
         public string OperatingSystem { get { return operatingSystem; } set { operatingSystem = value; } }
-        bool stylusEnabled = false;
+        bool stylusEnabled = false; 
         public bool StylusEnabled { get {  return stylusEnabled; } set {  stylusEnabled = value; } }
 
         // Konstruktorit
@@ -133,15 +146,19 @@ namespace Laiterekisteri
 
         public Tablet() : base() { }
 
-        public Tablet(string name) : base(name) { }
+        public Tablet(string identity) : base(identity) { }
 
         // Tablet-luokan erikoismetodit
         // ----------------------------
         public void TabletInfo()
-        { 
-          Console.WriteLine("Käyttöjärjestelmä: " + OperatingSystem);
-          Console.WriteLine("Kynätuki: " + StylusEnabled);
+        {
+            Console.WriteLine();
+            Console.WriteLine("Tabletin erityistiedot");
+            Console.WriteLine("------------------------");
+            Console.WriteLine("Käyttöjärjestelmä: " + OperatingSystem);
+            Console.WriteLine("Kynätuki: " + StylusEnabled);
         }
+
     }
    
     // Pääluokan ohjelma, josta tulee Program.exe
@@ -156,22 +173,92 @@ namespace Laiterekisteri
             while (true)
             {
                 Console.WriteLine("Minkä laitteen tiedot tallennetaan?");
-                Console.WriteLine("1 tietokone, 2 tabletti");
+                Console.Write("1 tietokone, 2 tabletti");
                 string type = Console.ReadLine();
 
                 // Luodaan Switch-Case -rakenne vaihtoehdoille
                 switch (type)
                 {
                     case "1":
+
+                        // Kysytään käyttäjiltä tietokoneen tiedot
+                        // ja luodaan uusi tietokoneolio
                         Console.Write("Nimi: ");
                         string computerIdentity = Console.ReadLine();
-                        Computer computer = new Computer();
+                        Computer computer = new Computer(computerIdentity);
+                        Console.Write("Ostopäivä: ");
+                        computer.DateBought = Console.ReadLine();
+                        Console.Write("Hankintahinta: ");
+                        string price = Console.ReadLine();
+
+                        try 
+                        {
+                            computer.Price = double.Parse(price);
+                        }
+
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Virheellinen hintatieto, käytä desimaalipilkkua (,) + ex.Message");
+
+                            break;
+                        }
+
+                        Console.Write("Takuun kesto kuukausina: ");
+                        string warranty = Console.ReadLine();
+
+                        try
+                        {
+                            computer.Warranty = int.Parse(warranty);  
+                        }
+
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine("Virheellinen takuutieto, vain kuukausien määrä kokonaislukuna" + ex.Message); 
+                            
+                            
+                        }
+
+                        
+                        Console.Write("Prosessorin tyyppi: ");
+                        computer.ProcessorType = Console.ReadLine();
+
+                        Console.Write("Keskusmuistin määrä (GB): ");
+                        string amountRAM = Console.ReadLine();
+
+                        try 
+                        {
+                            computer.AmountRam = int.Parse(amountRAM);
+                        }
+
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine("Virheelinen muistin määrä, vain kokonaisluvut sallittu" + ex.Message);
+                        }
+
+                        Console.Write("Tallennuskapasiteetti (GB): ");
+                        string storageCapasity = Console.ReadLine();
+
+                        try 
+                        {
+                            computer.StorageCapacity = int.Parse(storageCapasity);
+                        }
+                        
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Virheellinen tallennustilan koko, vain kokonaisluvut sallittu" + ex.Message);
+                            
+                        }
+
+                        // Näytetään olion tiedot metodien avulla
+                        computer.ShowPurchaseInfo();
+                        computer.ShowBasicTechnicalInfo();
+
                         break;
 
                     case "2":
                         Console.Write("Nimi: ");
                         string tabletIdentity = Console.ReadLine();
-                        Tablet tablet = new Tablet();
+                        Tablet tablet = new Tablet(tabletIdentity);
                         break;
 
                     default:
