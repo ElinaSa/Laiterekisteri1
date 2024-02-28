@@ -173,7 +173,7 @@ namespace Laiterekisteri
             while (true)
             {
                 Console.WriteLine("Minkä laitteen tiedot tallennetaan?");
-                Console.Write("1 tietokone, 2 tabletti");
+                Console.Write("1 tietokone, 2 älypuhelin, 3 tabletti");
                 string type = Console.ReadLine();
 
                 // Luodaan Switch-Case -rakenne vaihtoehdoille
